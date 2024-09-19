@@ -35,7 +35,6 @@ import org.lotka.xenonx.presentation.composable.StandardTopBar
 import org.lotka.xenonx.presentation.screen.home.compose.HeaderSection
 import org.lotka.xenonx.presentation.ui.navigation.ScreensNavigation
 import org.lotka.xenonx.presentation.util.dimens.SpaceMedium
-import org.lotka.xenonx.presentation.util.dimens.SpaceSmall
 
 @Composable
 fun HomeScreen (
@@ -71,7 +70,7 @@ fun HomeScreen (
                             onNavigateToBooMarkScreen(
                                 ScreensNavigation.bookMarkScreen.route
                             )
-                        },
+                        }.padding(end = SpaceMedium),
                         imageVector =  Icons.Default.Bookmarks,
                         contentDescription = "search" ,
                         tint = MaterialTheme.colors.onBackground,
