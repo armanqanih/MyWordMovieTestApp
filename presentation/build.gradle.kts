@@ -58,6 +58,11 @@ dependencies {
 
 
 
+    // Extended Icons
+    implementation("androidx.compose.material:material-icons-extended:1.5.4")
+
+
+
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.22")
 //    implementation("com.google.protobuf:protobuf-java:3.19.3")
 

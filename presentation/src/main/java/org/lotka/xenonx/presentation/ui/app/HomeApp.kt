@@ -18,8 +18,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.accompanist.pager.ExperimentalPagerApi
+import org.lotka.xenonx.presentation.screen.home.HomeScreen
 
 import org.lotka.xenonx.presentation.ui.navigation.ScreensNavigation
+import org.lotka.xenonx.presentation.screen.splash.SplashScreen
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -46,23 +48,18 @@ fun HomeApp(
 
         content = { _ ->
             NavHost(navController = navController,
-                startDestination = ScreensNavigation.single_chat_screen .route,
-                enterTransition = {
-                    // you can change whatever you want transition
-                    EnterTransition.None
-                },
-                exitTransition = {
-                    // you can change whatever you want transition
-                    ExitTransition.None
-                }) {
-                composable(
-                    route = ScreensNavigation.single_chat_screen .route,
+                startDestination = ScreensNavigation.homeScreen .route,
                 ) {
+                composable(
+                    route = ScreensNavigation.spalshScreen .route,
+                ) {
+                SplashScreen(navController = navController)
+                }
 
-
-
-
-
+                composable(
+                    route = ScreensNavigation.homeScreen .route,
+                ) {
+                    HomeScreen( )
                 }
 
 

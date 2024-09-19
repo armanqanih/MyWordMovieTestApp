@@ -16,7 +16,7 @@ private val DarkColorPalette = darkColors(
 )
 
 @Composable
-fun CleanArchitectureNoteAppTheme( content: @Composable() () -> Unit) {
+fun CleanArchitectureMovieAppTheme(content: @Composable() () -> Unit) {
     MaterialTheme(
         colors = DarkColorPalette,
         typography = Typography,
