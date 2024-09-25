@@ -1,14 +1,12 @@
-package org.lotka.xenonx.data.remote.api
+package org.lotka.xenonx.data.api
 
-
-import org.lotka.xenonx.data.remote.Dto.models.CastDto
-import org.lotka.xenonx.data.remote.Dto.models.GenreDto
-import org.lotka.xenonx.data.remote.Dto.models.MovieDetailsDTO
 
 import org.lotka.xenonx.data.remote.Dto.models.MoviesDto
-import org.lotka.xenonx.data.remote.Dto.models.SearchDto
-
-
+import org.lotka.xenonx.data.remote.response.CastResponse
+import org.lotka.xenonx.data.remote.response.GenreResponse
+import org.lotka.xenonx.data.remote.response.MovieDetailsDTO
+import org.lotka.xenonx.data.remote.response.MovieResponse
+import org.lotka.xenonx.data.remote.response.MultiSearchResponse
 import org.lotka.xenonx.domain.util.Constants.Companion.API_KEY
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -16,41 +14,51 @@ import retrofit2.http.Query
 
 
 interface ApiService {
+
+    @GET("movie/{category}")
+    suspend fun getMovies(
+        @Query("category") category: String,
+        @Query("page") page: Int ,
+        @Query("api_key") apiKey: String = API_KEY,
+        @Query("language") language: String = "en"
+    ): MovieResponse
+
+
     /****Movies***/
     @GET("trending/movie/week")
     suspend fun getTrendingMovies(
         @Query("page") page: Int = 0,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en"
-    ): List<MoviesDto>
+    ): MovieResponse
 
     @GET("movie/popular")
     suspend fun getPopularMovies(
         @Query("page") page: Int = 0,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en"
-    ): List<MoviesDto>
+    ): MovieResponse
 
     @GET("movie/top_rated")
     suspend fun getTopRatedMovies(
         @Query("page") page: Int = 0,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en"
-    ): List<MoviesDto>
+    ): MovieResponse
 
     @GET("movie/now_playing")
     suspend fun getNowPlayingMovies(
         @Query("page") page: Int = 0,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en"
-    ): List<MoviesDto>
+    ): MovieResponse
 
     @GET("movie/upcoming")
     suspend fun getUpcomingMovies(
         @Query("page") page: Int = 0,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en"
-    ): List<MoviesDto>
+    ): MovieResponse
 
     @GET("movie/{movie_id}/recommendations")
     suspend fun getRecommendedMovies(
@@ -58,7 +66,7 @@ interface ApiService {
         @Query("page") page: Int = 0,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en"
-    ): List<MoviesDto>
+    ): MovieResponse
 
     @GET("discover/movie")
     suspend fun getGenreWiseMovieList(
@@ -66,7 +74,7 @@ interface ApiService {
         @Query("page") page: Int = 1,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en"
-    ): List<MoviesDto>
+    ): MovieResponse
 
     @GET("movie/{movie_id}/similar")
     suspend fun getSimilarMovies(
@@ -74,7 +82,7 @@ interface ApiService {
         @Query("page") page: Int = 1,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en"
-    ):List<MoviesDto>
+    ): MovieResponse
 
     @GET("discover/movie?")
     suspend fun getDiscoverMovies(
@@ -84,7 +92,7 @@ interface ApiService {
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en",
         @Query("sort_by") sortBy: String = "vote_count.desc"
-    ):List<MoviesDto>
+    ): MovieResponse
 
     @GET("movie/{movie_id}")
     suspend fun getMoviesDetails(
@@ -97,13 +105,13 @@ interface ApiService {
     suspend fun getMovieCast(
         @Path("movie_id") filmId: Int,
         @Query("api_key") apiKey: String = API_KEY
-    ): List<CastDto>
+    ): CastResponse
 
     @GET("genre/movie/list")
     suspend fun getMovieGenres(
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en"
-    ): List<GenreDto>
+    ): GenreResponse
 
     @GET("search/multi")
     suspend fun multiSearch(
@@ -112,7 +120,7 @@ interface ApiService {
         @Query("include_adult") includeAdult: Boolean = true,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en"
-    ): List<SearchDto>
+    ): MultiSearchResponse
 
     /** **Tv Shows**
      * CURRENTLY NOT IN USED
@@ -123,13 +131,13 @@ interface ApiService {
     suspend fun getTvShowGenres(
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en-US"
-    ): List<GenreDto>
+    ): GenreResponse
 
     @GET("tv/{tv_id}/credits")
     suspend fun getTvShowCast(
         @Path("tv_id") filmId: Int,
         @Query("api_key") apiKey: String = API_KEY
-    ): List<CastDto>
+    ): CastResponse
 
     @GET("tv/{tv_id}/similar")
     suspend fun getSimilarTvShows(
@@ -137,21 +145,21 @@ interface ApiService {
         @Query("page") page: Int = 0,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en-US"
-    ): List<MoviesDto>
+    ): MovieResponse
 
     @GET("trending/tv/week")
     suspend fun getTrendingTvSeries(
         @Query("page") page: Int = 0,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en-US"
-    ): List<MoviesDto>
+    ): MovieResponse
 
     @GET("tv/popular")
     suspend fun getPopularTvShows(
         @Query("page") page: Int = 0,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en-US"
-    ): List<MoviesDto>
+    ): MovieResponse
 
 
     @GET("tv/top_rated")
@@ -159,7 +167,7 @@ interface ApiService {
         @Query("page") page: Int = 0,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en-US"
-    ): List<MoviesDto>
+    ): MovieResponse
 
 
     @GET("tv/{tv_id}/recommendations")
@@ -168,7 +176,7 @@ interface ApiService {
         @Query("page") page: Int = 0,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en-US"
-    ): List<MoviesDto>
+    ): MovieResponse
 
     @GET("discover/tv?")
     suspend fun getDiscoverTvShows(
@@ -178,5 +186,5 @@ interface ApiService {
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en-US",
         @Query("sort_by") sortBy: String = "vote_count.desc"
-    ): List<MoviesDto>
+    ): MovieResponse
 }

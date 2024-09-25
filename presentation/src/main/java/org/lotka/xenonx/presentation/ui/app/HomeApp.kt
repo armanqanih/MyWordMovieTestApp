@@ -14,9 +14,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
 import org.lotka.xenonx.presentation.screen.home.HomeScreen
 
@@ -59,7 +61,26 @@ fun HomeApp(
                 composable(
                     route = ScreensNavigation.homeScreen .route,
                 ) {
-                    HomeScreen( )
+                    HomeScreen(
+                        onNavigateToMoreScreen = navController::navigate,
+                        onNavigateToDetail = navController::navigate,
+                        onNavigateToGenreScreen = navController::navigate,
+                        onNavigateToSearchScreen = navController::navigate,
+                        onNavigateToBooMarkScreen = navController::navigate
+                    )
+                }
+                composable(
+                    route = ScreensNavigation.genryVisyScreen.route
+                    + "/{genreId}" + "/{genreName}",
+                    arguments = listOf(
+                        navArgument("genreId"){type = NavType.StringType },
+                        navArgument("genreName"){type = NavType.StringType },
+                    )
+
+                ) {
+
+
+
                 }
 
 

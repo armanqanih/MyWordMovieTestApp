@@ -38,5 +38,7 @@ data class Movies(
 
     val voteAverage: Double,
 
-    val voteCount: Int
+    val voteCount: Int,
+
+    val category: String
 )

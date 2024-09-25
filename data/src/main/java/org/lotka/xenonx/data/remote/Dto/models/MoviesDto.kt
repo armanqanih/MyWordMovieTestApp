@@ -3,6 +3,7 @@ package org.lotka.xenonx.data.remote.Dto.models
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
+import org.lotka.xenonx.data.local.MoviesEntity
 import org.lotka.xenonx.domain.model.Movies
 
 @Parcelize
@@ -40,8 +41,42 @@ data class MoviesDto(
     @SerializedName("vote_average")
     val voteAverage: Double,
     @SerializedName("vote_count")
-    val voteCount: Int
+    val voteCount: Int,
+    @SerializedName("category")
+    val category: String
 ) : Parcelable
+
+
+
+
+
+fun MoviesDto.toMovieEntity(): MoviesEntity {
+    return MoviesEntity(
+        adult = this.adult,
+        backdropPath = this.backdropPath,
+        posterPath = this.posterPath,
+        genreIds = this.genreIds.toString(),
+        genres = this.genres?.map { it.toGenre() }, // Assuming you have a toGenre() function
+        mediaType = this.mediaType,
+        id = this.id,
+        imdbId = this.imdbId,
+        originalLanguage = this.originalLanguage,
+        overview = this.overview,
+        popularity = this.popularity,
+        releaseDate = this.releaseDate,
+        runtime = this.runtime,
+        title = this.title,
+        video = this.video,
+        voteAverage = this.voteAverage,
+        voteCount = this.voteCount,
+        category = category
+    )
+}
+
+
+
+
+
 
 fun MoviesDto.toMovie(): Movies {
     return Movies(
@@ -61,7 +96,8 @@ fun MoviesDto.toMovie(): Movies {
         title = this.title,
         video = this.video,
         voteAverage = this.voteAverage,
-        voteCount = this.voteCount
+        voteCount = this.voteCount,
+        category = category
     )
 }
 
