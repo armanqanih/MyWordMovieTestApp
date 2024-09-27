@@ -24,6 +24,8 @@ class HomeViewModel @Inject constructor(
 
 
     init {
+        getDiscoverMovie()
+        getNowPlayingMovies(true)
         getPopularMovieList(false)
         getUpcomingMovieList(false)
     }
@@ -49,6 +51,73 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
+
+
+
+    private fun getDiscoverMovie(){
+        viewModelScope.launch {
+            repository.getDiscoverMovies(state.value.dicCoverPage).collect{result->
+                _state.update { it.copy(isLoading = true) }
+                when(result){
+                    is Resource.Success -> {
+                     result?.data.let { movies->
+                         _state.update { it.copy(
+                             dicCoverMovies = movies,
+                             isLoading = false,
+                             dicCoverPage = it.dicCoverPage + 1
+                         ) }
+                     }
+                    }
+                    is Resource.Error -> {
+                        _state.update { it.copy(
+                            isLoading = false
+                            , error = result.message
+                        )}
+                    }
+                    is Resource.Loading -> {
+                        _state.update { it.copy(isLoading = true) }
+                    }
+
+                }
+            }
+        }
+    }
+
+
+    private fun getNowPlayingMovies(forceFetchFromRemote: Boolean){
+        viewModelScope.launch {
+            repository.getNowPlayingMovies(fromFetchForRemote = forceFetchFromRemote,
+                state.value.nowPlayingPage).collect{result->
+                _state.update { it.copy(isLoading = true) }
+                    when(result){
+                        is Resource.Success -> {
+                            result.data?.let { nowPlaying ->
+                                _state.update {
+                                    it.copy(
+                                        isLoading = false,
+                                        nowPlayingMovies = nowPlaying,
+                                        nowPlayingPage = it.nowPlayingPage + 1
+                                    )
+                                }}
+
+                        }
+                        is Resource.Error ->{
+                            _state.update { it.copy(
+                                isLoading = false
+                                , error = result.message
+                            )
+
+                            }
+                        }
+                        is Resource.Loading -> {
+                            _state.update { it.copy(isLoading = true) }
+                        }
+
+                    }
+            }
+        }
+    }
+
 
     private fun getPopularMovieList(forceFetchFromRemote: Boolean) {
         viewModelScope.launch {

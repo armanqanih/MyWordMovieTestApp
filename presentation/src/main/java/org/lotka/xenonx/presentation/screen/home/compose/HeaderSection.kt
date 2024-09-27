@@ -56,7 +56,7 @@ fun HeaderSection(
                     .height(230.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text(text = "OOps Image Is Null !!", style = MaterialTheme.typography.h2,
+                Text(text = "OOps We Dont Have Any Image", style = MaterialTheme.typography.h2,
                     fontWeight = FontWeight.Bold
                 )
             }

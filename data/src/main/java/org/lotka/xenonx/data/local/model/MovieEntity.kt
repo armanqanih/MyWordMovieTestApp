@@ -1,4 +1,4 @@
-package org.lotka.xenonx.data.local
+package org.lotka.xenonx.data.local.model
 
 
 import androidx.room.Entity

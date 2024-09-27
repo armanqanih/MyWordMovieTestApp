@@ -29,11 +29,13 @@ import androidx.compose.ui.Modifier
 
 import androidx.hilt.navigation.compose.hiltViewModel
 import org.lotka.xenonx.domain.util.Constants.Companion.nowPlayingAllListScreen
+import org.lotka.xenonx.domain.util.Constants.Companion.popularAllListScreen
 
 import org.lotka.xenonx.presentation.composable.StandardTopBar
 import org.lotka.xenonx.presentation.screen.home.compose.Genre
 import org.lotka.xenonx.presentation.screen.home.compose.HeaderSection
 import org.lotka.xenonx.presentation.screen.home.compose.NowPlaying
+import org.lotka.xenonx.presentation.screen.home.compose.PopularMovie
 import org.lotka.xenonx.presentation.ui.navigation.ScreensNavigation
 import org.lotka.xenonx.presentation.util.dimens.SpaceMedium
 
@@ -106,10 +108,10 @@ fun HomeScreen (
                       )
                 }
                 item {
-//               Genre(
-//                   genre = state.geners,
-//                   onNavigateTo = onNavigateToGenreScreen
-//                   )
+               Genre(
+                   genre = state.geners,
+                   onNavigateTo = onNavigateToGenreScreen
+                   )
                 }
                 item {
                     NowPlaying(
@@ -119,6 +121,16 @@ fun HomeScreen (
                         onNavigateToMoreScreen(
                             ScreensNavigation.seeAllScreen.route +
                                     "/$nowPlayingAllListScreen")
+                        }
+                    )
+                }
+                item {
+                    PopularMovie(
+                        popularMovies = state.popularMovies
+                        , onNavigateToDetail = onNavigateToDetail
+                    , onNavigateToMoreScreen = {
+                            ScreensNavigation.seeAllScreen.route +
+                                    "/$popularAllListScreen"
                         }
                     )
                 }

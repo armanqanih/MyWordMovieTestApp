@@ -34,7 +34,7 @@ interface ApiService {
 
     @GET("movie/popular")
     suspend fun getPopularMovies(
-        @Query("page") page: Int = 0,
+        @Query("page") page: Int ,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = "en"
     ): MovieResponse

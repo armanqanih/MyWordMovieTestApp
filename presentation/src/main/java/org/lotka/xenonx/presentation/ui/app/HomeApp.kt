@@ -20,6 +20,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
+import org.lotka.xenonx.presentation.screen.book_mark.BookMarkScreen
 import org.lotka.xenonx.presentation.screen.home.HomeScreen
 
 import org.lotka.xenonx.presentation.ui.navigation.ScreensNavigation
@@ -50,12 +51,20 @@ fun HomeApp(
 
         content = { _ ->
             NavHost(navController = navController,
-                startDestination = ScreensNavigation.homeScreen .route,
+                startDestination = ScreensNavigation.bookMarkScreen.route,
                 ) {
                 composable(
                     route = ScreensNavigation.spalshScreen .route,
                 ) {
                 SplashScreen(navController = navController)
+                }
+                composable(
+                    route = ScreensNavigation.bookMarkScreen .route,
+                ) {
+                    BookMarkScreen(
+                        onNavigateToSearch = navController::navigate,
+                        onNavigateUp = navController::navigateUp
+                    )
                 }
 
                 composable(

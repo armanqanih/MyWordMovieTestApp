@@ -9,7 +9,7 @@ data class HomeState(
     val popularPage:Int = 1,
     val upComingMovies: List<Movies> = emptyList(),
     val upComingPage:Int = 1,
-    val dicCoverMovies: List<Movies> = emptyList(),
+    val dicCoverMovies: List<Movies>? = emptyList(),
     val dicCoverPage:Int = 1,
     val nowPlayingMovies: List<Movies> = emptyList(),
     val nowPlayingPage:Int = 1,

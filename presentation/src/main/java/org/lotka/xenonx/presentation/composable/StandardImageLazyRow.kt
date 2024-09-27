@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -26,20 +27,20 @@ import coil.request.ImageRequest
 import coil.size.Scale
 import coil.size.Size
 import org.lotka.xenonx.presentation.R
-import org.lotka.xenonx.presentation.util.Constants
 import org.lotka.xenonx.presentation.util.dimens.SpaceMedium
 
 @Composable
 fun StandardImageLazy(
     imageUrl:String,
-    isTextVisible:Boolean = false,
+    titleVisible:Boolean = false,
+    backgroundOfTitleVisible:Boolean=false,
     text:String = "",
     onNavigateTo:()->Unit = {},
     hightOfImage:Dp = 150.dp,
     widthOfImage:Dp = 120.dp
 ){
 
-    if (imageUrl != null){
+    if (imageUrl.isNotEmpty()){
         Box(modifier = Modifier
             .height(hightOfImage)
             .width(widthOfImage)
@@ -66,14 +67,18 @@ fun StandardImageLazy(
                 contentDescription = "header image"
 
             )
-            if (isTextVisible){
+            if (titleVisible){
                Text(
                    text = text,
                    style = MaterialTheme.typography.body1,
                    color = MaterialTheme.colors.onBackground,
                    modifier = Modifier
                        .fillMaxWidth()
-                       .background(color = MaterialTheme.colors.surface)
+                       .background(
+                           if (backgroundOfTitleVisible)
+                       MaterialTheme.colors.surface
+                       else null !!
+                       )
                        .align(Alignment.BottomCenter)
                    )
             }

@@ -3,7 +3,7 @@ package org.lotka.xenonx.data.remote.Dto.models
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-import org.lotka.xenonx.data.local.MoviesEntity
+import org.lotka.xenonx.data.local.model.MoviesEntity
 import org.lotka.xenonx.domain.model.Movies
 
 @Parcelize
