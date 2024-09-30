@@ -1,8 +1,6 @@
 package org.lotka.xenonx.presentation.ui.app
 
 
-
-
 import android.annotation.SuppressLint
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -21,7 +19,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
 import org.lotka.xenonx.presentation.screen.book_mark.BookMarkScreen
+import org.lotka.xenonx.presentation.screen.detail_screen.DetailScreen
 import org.lotka.xenonx.presentation.screen.home.HomeScreen
+import org.lotka.xenonx.presentation.screen.see_all.SeeAllScreen
 
 import org.lotka.xenonx.presentation.ui.navigation.ScreensNavigation
 import org.lotka.xenonx.presentation.screen.splash.SplashScreen
@@ -50,16 +50,31 @@ fun HomeApp(
     Scaffold(
 
         content = { _ ->
-            NavHost(navController = navController,
-                startDestination = ScreensNavigation.bookMarkScreen.route,
-                ) {
+            NavHost(
+                navController = navController,
+                startDestination = ScreensNavigation.seeAllScreen.route,
+            ) {
                 composable(
-                    route = ScreensNavigation.spalshScreen .route,
+                    route = ScreensNavigation.spalshScreen.route,
                 ) {
-                SplashScreen(navController = navController)
+                    SplashScreen(navController = navController)
                 }
                 composable(
-                    route = ScreensNavigation.bookMarkScreen .route,
+                    route = ScreensNavigation.detailScreen.route,
+                ) {
+                    DetailScreen(
+                        onNavigateUp = navController::navigateUp
+                    )
+                }
+                composable(
+                    route = ScreensNavigation.seeAllScreen.route,
+                ) {
+                    SeeAllScreen(
+                        onNavigateUp = navController::navigateUp
+                    )
+                }
+                composable(
+                    route = ScreensNavigation.bookMarkScreen.route,
                 ) {
                     BookMarkScreen(
                         onNavigateToSearch = navController::navigate,
@@ -68,7 +83,7 @@ fun HomeApp(
                 }
 
                 composable(
-                    route = ScreensNavigation.homeScreen .route,
+                    route = ScreensNavigation.homeScreen.route,
                 ) {
                     HomeScreen(
                         onNavigateToMoreScreen = navController::navigate,
@@ -80,14 +95,13 @@ fun HomeApp(
                 }
                 composable(
                     route = ScreensNavigation.genryVisyScreen.route
-                    + "/{genreId}" + "/{genreName}",
+                            + "/{genreId}" + "/{genreName}",
                     arguments = listOf(
-                        navArgument("genreId"){type = NavType.StringType },
-                        navArgument("genreName"){type = NavType.StringType },
+                        navArgument("genreId") { type = NavType.StringType },
+                        navArgument("genreName") { type = NavType.StringType },
                     )
 
                 ) {
-
 
 
                 }

@@ -76,6 +76,30 @@ fun MoviesDto.toMovieEntity(): MoviesEntity {
 
 
 
+fun Movies.toMovieDto(): MoviesDto {
+    return MoviesDto(
+        adult = this.adult,
+        backdropPath = this.backdropPath,
+        posterPath = this.posterPath,
+        genreIds = this.genreIds,
+        genres = this.genres?.map { it.toGenreDto() },
+        mediaType = this.mediaType,
+        id = this.id,
+        imdbId = this.imdbId,
+        originalLanguage = this.originalLanguage,
+        overview = this.overview,
+        popularity = this.popularity,
+        releaseDate = this.releaseDate,
+        runtime = this.runtime,
+        title = this.title,
+        video = this.video,
+        voteAverage = this.voteAverage,
+        voteCount = this.voteCount,
+        category = category
+        )
+
+}
+
 
 
 fun MoviesDto.toMovie(): Movies {

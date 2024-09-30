@@ -1,12 +1,12 @@
 package org.lotka.xenonx.data.api
 
 
-import org.lotka.xenonx.data.remote.Dto.models.MoviesDto
-import org.lotka.xenonx.data.remote.response.CastResponse
+
 import org.lotka.xenonx.data.remote.response.GenreResponse
 import org.lotka.xenonx.data.remote.response.MovieDetailsDTO
 import org.lotka.xenonx.data.remote.response.MovieResponse
 import org.lotka.xenonx.data.remote.response.MultiSearchResponse
+import org.lotka.xenonx.domain.model.response.CastResponse
 import org.lotka.xenonx.domain.util.Constants.Companion.API_KEY
 import retrofit2.http.GET
 import retrofit2.http.Path

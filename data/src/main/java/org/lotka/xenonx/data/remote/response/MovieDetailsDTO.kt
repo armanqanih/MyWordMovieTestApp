@@ -2,6 +2,8 @@ package org.lotka.xenonx.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 import org.lotka.xenonx.data.remote.Dto.models.GenreDto
+import org.lotka.xenonx.data.remote.Dto.models.toGenre
+import org.lotka.xenonx.domain.model.MovieDetails
 
 
 data class MovieDetailsDTO(
@@ -97,3 +99,59 @@ data class MovieDetailsDTO(
         val name: String
     )
 }
+
+fun MovieDetailsDTO.toMovieDetail(): MovieDetails {
+    return MovieDetails(
+        adult = adult,
+        backdropPath = backdropPath,
+        belongsToCollection = belongsToCollection?.let {
+            MovieDetails.BelongsToCollection(
+                id = it.id,
+                name = it.name,
+                posterPath = it.posterPath,
+                backdropPath = it.backdropPath
+            )
+        },
+        budget = budget,
+        genres = genres.map {it.toGenre()},
+        homepage = homepage,
+        id = id,
+        imdbId = imdbId,
+        originalLanguage = originalLanguage,
+        originalTitle = originalTitle,
+        overview = overview,
+        popularity = popularity,
+        posterPath = posterPath,
+        productionCompanies = productionCompanies.map { companyDto ->
+            MovieDetails.ProductionCompany(
+                id = companyDto.id,
+                logoPath = companyDto.logoPath,
+                name = companyDto.name,
+                originCountry = companyDto.originCountry
+            )
+        },
+        productionCountries = productionCountries.map { countryDto ->
+            MovieDetails.ProductionCountry(
+                iso31661 = countryDto.iso31661,
+                name = countryDto.name
+            )
+        },
+        releaseDate = releaseDate,
+        revenue = revenue,
+        runtime = runtime,
+        spokenLanguages = spokenLanguages.map { languageDto ->
+            MovieDetails.SpokenLanguage(
+                iso6391 = languageDto.iso6391,
+                name = languageDto.name
+            )
+        },
+        status = status,
+        tagline = tagline,
+        title = title,
+        video = video,
+        voteAverage = voteAverage,
+        voteCount = voteCount
+    )
+}
+
+

@@ -41,7 +41,7 @@ object AppModule {
             app,
             MovieDatabase::class.java,
             "movie"
-        ).addTypeConverter(converters)  // Register the TypeConverters
+        ).addTypeConverter(converters)
             .build()
     }
 

@@ -14,6 +14,14 @@ data class GenreDto(
     val name: String
 ): Parcelable
 
+fun Genre.toGenreDto(): GenreDto {
+    return GenreDto(
+        id = id,
+        name = name
+    )
+}
+
+
 fun GenreDto.toGenre(): Genre {
     return Genre(
         id = id,

@@ -5,7 +5,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import org.lotka.xenonx.data.remote.repository.DetailMovieRepositoryImpl
 import org.lotka.xenonx.data.remote.repository.MovieRepositoryImpl
+import org.lotka.xenonx.domain.repository.DetailMovieRepository
 import org.lotka.xenonx.domain.repository.MoviesRepository
 import javax.inject.Singleton
 
@@ -21,6 +23,12 @@ abstract class RepositoryModule {
     abstract fun bindMovieListRepository(
         movieListRepositoryImpl: MovieRepositoryImpl
     ): MoviesRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindDetailMovieRepository(
+        detailMovieRepositoryImpl: DetailMovieRepositoryImpl
+    ): DetailMovieRepository
 
 }
 
